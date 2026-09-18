@@ -7,7 +7,7 @@ data/hapi-registrations.xlsx
 .agents/
 images/
 opencode.json
-assets/
+/assets/
 zed/
 AGENTS.md
 CLAUDE.md
