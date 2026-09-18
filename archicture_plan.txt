@@ -1,0 +1,30 @@
+┌──────────────────────┐
+│   Registration UI    │
+│                      │
+│ Name                 │
+│ Email                │
+│ Organization         │
+│ Participant/Audience │
+│ Other fields...      │
+└──────────┬───────────┘
+           │ POST /register
+           ▼
+┌──────────────────────┐
+│       Backend        │
+│                      │
+│ Validate input       │
+│ Generate ID          │
+│ Check duplicates     │
+│ Format registration  │
+│ Update Excel         │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│      Excel (.xlsx)   │
+│                      │
+│ Registered           │
+│ Participants         │
+│ Audience              │
+│ Summary/Stats        │
+└──────────────────────┘

@@ -1,0 +1,11 @@
+node_modules/
+.next/
+dist/
+data/registrations.json
+data/hapi-registrations.xlsx
+.DS_Store
+.agents/
+images/
+opencode.json
+assets/
+zed/
