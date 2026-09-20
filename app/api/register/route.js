@@ -1,34 +1,46 @@
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import * as XLSX from 'xlsx';
+import { createServerSupabaseClient } from '../../../lib/supabase/server.js';
+import { queueExcelExport } from '../../../lib/registrations/excel.js';
+import { validateRegistration } from '../../../lib/registrations/validation.js';
 
 export const runtime = 'nodejs';
 
-const dataDir = path.join(process.cwd(), 'data');
-const registrationsFile = path.join(dataDir, 'registrations.json');
-const workbookFile = path.join(dataDir, 'hapi-registrations.xlsx');
-const requiredFields = ['firstName', 'lastName', 'email', 'participation', 'focus'];
-const clean = (value) => typeof value === 'string' ? value.trim().replace(/[<>]/g, '') : value;
+const registrationColumns = 'registration_id,registered_at,last_name,first_name,middle_name,gender,email,contact_number,barangay,city,province,region,institutional_affiliation,degree_program,other_affiliations,religious_stance,religious_stance_other,attending_as,attendance_mode,consent';
 
-async function readRegistrations() { try { return JSON.parse(await fs.readFile(registrationsFile, 'utf8')); } catch { return []; } }
-async function writeExcel(rows) {
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(rows.map(({ registrationId, registeredAt, ...row }) => ({ 'Registration ID': registrationId, 'Registered At': registeredAt, ...row }))), 'Registered');
-  XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet([{ Metric: 'Total registrations', Value: rows.length }, { Metric: 'Last updated', Value: new Date().toISOString() }]), 'Summary');
-  const workbookBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-  await fs.writeFile(workbookFile, workbookBuffer);
+function isDuplicateError(error) {
+  return error?.code === '23505' || /registrations_email_lower_idx|registrations_email/i.test(error?.message || '');
 }
 
 export async function POST(request) {
-  const input = await request.json().catch(() => ({}));
-  const body = Object.fromEntries(Object.entries(input).map(([key, value]) => [key, clean(value)]));
-  const missing = requiredFields.filter((field) => !body[field]);
-  if (missing.length || !body.consent) return Response.json({ message: 'Please complete the required fields and consent to be contacted.' }, { status: 400 });
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) return Response.json({ message: 'Please enter a valid email address.' }, { status: 400 });
-  const rows = await readRegistrations();
-  if (rows.some((row) => row.email.toLowerCase() === body.email.toLowerCase())) return Response.json({ message: 'That email is already registered with HAPI.' }, { status: 409 });
-  const record = { registrationId: `HAPI-${new Date().getFullYear()}-${String(rows.length + 1).padStart(4, '0')}`, registeredAt: new Date().toISOString(), ...body };
-  const nextRows = [...rows, record];
-  await fs.mkdir(dataDir, { recursive: true }); await fs.writeFile(registrationsFile, JSON.stringify(nextRows, null, 2)); await writeExcel(nextRows);
-  return Response.json({ registrationId: record.registrationId }, { status: 201 });
+  const input = await request.json().catch(() => null);
+  const validation = validateRegistration(input);
+  if (!validation.ok) return Response.json({ message: validation.message }, { status: validation.status });
+
+  try {
+    const supabase = createServerSupabaseClient();
+    const { data: createdRows, error: createError } = await supabase.rpc('create_registration', { registration_payload: validation.data });
+    if (createError) {
+      if (isDuplicateError(createError)) return Response.json({ message: 'That email is already registered with HAPI.' }, { status: 409 });
+      console.error('Registration insert failed:', { code: createError.code, message: createError.message, details: createError.details, hint: createError.hint });
+      return Response.json({ message: 'We could not save your registration right now. Please try again.' }, { status: 500 });
+    }
+
+    const created = Array.isArray(createdRows) ? createdRows[0] : createdRows;
+    if (!created?.registration_id) {
+      console.error('Registration insert returned no registration ID.');
+      return Response.json({ message: 'We could not confirm your registration. Please try again.' }, { status: 500 });
+    }
+
+    try {
+      const { data: rows, error: exportQueryError } = await supabase.from('registrations').select(registrationColumns).order('registered_at', { ascending: true });
+      if (exportQueryError) throw exportQueryError;
+      await queueExcelExport(rows || []);
+    } catch (exportError) {
+      console.error('Registration Excel export failed:', exportError instanceof Error ? exportError.message : exportError);
+    }
+
+    return Response.json({ registrationId: created.registration_id }, { status: 201 });
+  } catch (error) {
+    console.error('Registration backend error:', error instanceof Error ? error.message : error);
+    return Response.json({ message: 'Registration is temporarily unavailable. Please try again later.' }, { status: 500 });
+  }
 }

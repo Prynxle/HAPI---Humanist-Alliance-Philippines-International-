@@ -18,6 +18,6 @@ npm run build
 npm start
 ```
 
-The API is a Next.js App Router route handler at `/api/register` and runs on the Node.js runtime because Excel generation requires filesystem access.
+The API is a Next.js App Router route handler at `/api/register` and runs on the Node.js runtime because Excel generation requires filesystem access. Supabase/PostgreSQL is the authoritative registration store; the workbook in `data/hapi-registrations.xlsx` is a secondary export.
 
-For production, move the registration store to a managed database or spreadsheet service with authentication and backups before collecting real member data.
+Apply the SQL in `supabase/migrations/20260920130000_registrations_backend.sql` to the Supabase project and configure `NEXT_SUPABASE_URL` plus the server-only `SUPABASE_SERVICE_ROLE_KEY` in the local environment before submitting registrations.

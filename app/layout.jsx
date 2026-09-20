@@ -1,9 +1,9 @@
 import './globals.css';
-import './qa.css';
+import './registration.css';
 
 export const metadata = {
-  title: 'Join HAPI — Humanist Alliance Philippines, International',
-  description: 'A humanist community for curious minds, kind action, and a more human future.',
+  title: 'Discarding God | HAPI Conference 2026',
+  description: '1st Secular Philosophical Paper Conference by Humanist Alliance Philippines, International.',
 };
 
 export default function RootLayout({ children }) {
