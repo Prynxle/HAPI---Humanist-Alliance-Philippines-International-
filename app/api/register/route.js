@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from '../../../lib/supabase/server.js';
 import { queueExcelExport } from '../../../lib/registrations/excel.js';
 import { validateRegistration } from '../../../lib/registrations/validation.js';
+import { getSheetsWebhookConfig, syncRegistrationToSheets } from '../../../lib/registrations/sheets-sync.js';
 
 export const runtime = 'nodejs';
 
@@ -38,7 +39,32 @@ export async function POST(request) {
       console.error('Registration Excel export failed:', exportError instanceof Error ? exportError.message : exportError);
     }
 
-    return Response.json({ registrationId: created.registration_id }, { status: 201 });
+    const syncColumns = 'id,' + registrationColumns;
+    let createdRow = null;
+    try {
+      const { data: row, error: syncQueryError } = await supabase.from('registrations').select(syncColumns).eq('registration_id', created.registration_id).maybeSingle();
+      if (syncQueryError || !row) {
+        console.error('Registration row fetch failed:', { code: syncQueryError?.code, message: syncQueryError?.message, registrationId: created.registration_id });
+      } else {
+        createdRow = row;
+      }
+    } catch (error) {
+      console.error('Registration row fetch failed:', { code: error?.code, message: error instanceof Error ? error.message : error, registrationId: created.registration_id });
+    }
+
+    let syncWarning = false;
+    if (createdRow) {
+      try {
+        const { url, secret } = getSheetsWebhookConfig();
+        const syncResult = await syncRegistrationToSheets({ registration: createdRow, webhookUrl: url, webhookSecret: secret });
+        syncWarning = syncResult?.synced === false && !syncResult?.skipped;
+      } catch (error) {
+        console.error('Registration sheet sync failed:', { message: error instanceof Error ? error.message : error, registrationId: created.registration_id });
+        syncWarning = false;
+      }
+    }
+
+    return Response.json({ registrationId: created.registration_id, ...(syncWarning ? { syncWarning } : {}) }, { status: 201 });
   } catch (error) {
     console.error('Registration backend error:', error instanceof Error ? error.message : error);
     return Response.json({ message: 'Registration is temporarily unavailable. Please try again later.' }, { status: 500 });
