@@ -1,3 +1,11 @@
+-- NOTE: This migration was applied directly to the remote project and recorded in
+-- supabase_migrations.schema_migrations via a baseline entry (version 20260920130000,
+-- name 20260920130000_registrations_backend.sql) inserted by SQL — it is NOT re-run.
+--
+-- The two INFO-level "rls_enabled_no_policy" advisor findings on
+-- public.registration_counters and public.registrations are acceptable by design:
+-- anon/authenticated have zero grants on both tables, and only service_role reaches
+-- them through public.create_registration(jsonb). Do NOT add RLS policies here.
 create table if not exists public.registration_counters (
   year integer primary key check (year between 2000 and 9999),
   next_number integer not null check (next_number > 0)
