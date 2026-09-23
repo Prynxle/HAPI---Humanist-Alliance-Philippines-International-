@@ -184,6 +184,8 @@ test('Test 1: normal registration returns 201 and syncs Sheets exactly once', as
     const body = await response.json();
     assert.equal(body.registrationId, 'HAPI-2026-0001');
     assert.equal(body.syncWarning, undefined);
+    assert.equal(body.syncStatus, 'ok');
+    assert.equal(response.headers.get('X-Sync-Status'), 'ok');
 
     assert.equal(webhookCalls, 1, 'webhook must be called exactly once');
     const sent = JSON.parse(lastWebhookInit.body);
@@ -215,6 +217,8 @@ test('Test 2: Sheets down still returns 201 with syncWarning and no retry', asyn
     const body = await response.json();
     assert.equal(body.registrationId, 'HAPI-2026-0001');
     assert.equal(body.syncWarning, true, 'must surface the fail-open warning');
+    assert.equal(body.syncStatus, 'warning');
+    assert.equal(response.headers.get('X-Sync-Status'), 'warning');
 
     assert.equal(webhookCalls, 1, 'exactly one attempt — no automatic retry');
     const serializedLogs = errorLogs.join('\n');
@@ -338,6 +342,8 @@ test('MOD#2 regression: row fetch failure still returns 201 (fail-open) with saf
     const body = await response.json();
     assert.equal(body.registrationId, 'HAPI-2026-0001');
     assert.equal(body.syncWarning, undefined, 'no sync attempted without a row');
+    assert.equal(body.syncStatus, undefined, 'no sync status when no sync was attempted');
+    assert.equal(response.headers.get('X-Sync-Status'), null);
 
     assert.equal(webhookCalls, 0);
     const serializedLogs = errorLogs.join('\n');
@@ -345,6 +351,30 @@ test('MOD#2 regression: row fetch failure still returns 201 (fail-open) with saf
     assert.equal(serializedLogs.includes(FAKE_SECRET), false, 'logs must never contain the secret');
   } finally {
     console.error = originalError;
+    restoreFetch();
+  }
+});
+
+test('missing Sheets env vars return 201 with syncStatus skipped and 0 webhook calls', async () => {
+  // NOTE: env vars are deleted by resetState() — no setupEnv() here.
+  rpcResult = { data: [{ registration_id: 'HAPI-2026-0001' }], error: null };
+  row = fullRow;
+  const restoreFetch = installWebhookStub(async () => {
+    throw new Error('webhook must not be called');
+  });
+
+  try {
+    const response = await POST(makeRequest(validPayload));
+
+    assert.equal(response.status, 201);
+    const body = await response.json();
+    assert.equal(body.registrationId, 'HAPI-2026-0001');
+    assert.equal(body.syncStatus, 'skipped');
+    assert.equal(body.syncWarning, undefined, 'skipped is not a warning');
+    assert.equal(response.headers.get('X-Sync-Status'), 'skipped');
+
+    assert.equal(webhookCalls, 0, 'no webhook call when the sync is skipped');
+  } finally {
     restoreFetch();
   }
 });

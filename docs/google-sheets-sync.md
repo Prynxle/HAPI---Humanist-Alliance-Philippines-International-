@@ -113,6 +113,37 @@ Both variables are read inside `lib/registrations/sheets-sync.js`
 (`getSheetsWebhookConfig`) and are never exposed to the browser. If either is
 missing, the sync is **skipped** with a warning and registrations still succeed.
 
+### Redirect handling
+
+Apps Script web-app deployments answer direct hits with an HTTP 302 to
+`script.googleusercontent.com` before streaming the real JSON. The Next.js
+server follows the redirect automatically; when the platform fetch does not,
+the sync layer completes the **same logical attempt** with a single body-less,
+token-less `GET` to the `Location` header target. This is **not a webhook
+retry** — the initial `POST` happens at most once, the shared secret is never
+forwarded to the redirect target, and a second redirect is reported as a sync
+failure instead of looping. Apps Script answers with HTTP 200 plus the real
+outcome in the JSON body (`{"ok":true,...}`).
+
+### Registration API response surface
+
+`POST /api/register` keeps returning 201 as long as Supabase accepted the
+registration. When a Sheets sync was attempted, the response also carries a
+`syncStatus` value:
+
+| `syncStatus` | Meaning |
+| --- | --- |
+| `ok` | The Sheet mirror confirmed the write (`{ok:true}`). |
+| `skipped` | Sync was skipped because an env var is missing — no webhook call. |
+| `warning` | Sync was attempted but did not confirm (network, timeout, malformed body, redirect failure, or webhook error). |
+
+The same value is echoed in the `X-Sync-Status` response header. The legacy
+`syncWarning: true` field is still returned for unconfirmed attempts
+(`warning`). When no sync was attempted at all (for example the post-insert
+row fetch failed), neither `syncStatus` nor `X-Sync-Status` is emitted. This
+does not change the source-of-truth contract: Supabase is authoritative and
+the 201 is unconditional once the insert succeeds.
+
 ## 8. Testing
 
 ### Test 1 — Happy path
@@ -145,7 +176,11 @@ $r | ConvertTo-Json   # expect: {"ok":true,"status":201,"registrationId":"111111
 ```
 
 The web app URL can take a few seconds on first call (cold start); the Next.js
-client enforces a 5-second timeout and treats a timeout as a skipped sync.
+server allows up to 10 seconds for the webhook call
+(`SHEET_SYNC_TIMEOUT_MS`) and sets `maxDuration = 20` on the registration
+route, so the Apps Script cold start comfortably fits. A timeout never fails
+the registration — the API still returns 201 with `syncStatus: "warning"` (see
+the response surface below).
 
 ### Test 2 — Duplicate prevention
 
@@ -188,9 +223,62 @@ npm test
 - **Timestamp format** — cells are written as the UTC ISO string the API sends
   (`2026-09-21T08:30:00.000Z`). If `registeredAt` is not parseable the script
   rejects with 400.
-- **Timeout in the app logs** (`reason: 'timeout'`) — increase
-  `SHEET_SYNC_TIMEOUT_MS` in `lib/registrations/sheets-sync.js` and/or warm the
-  web hook, but note the sync is best-effort.
+- **Timeout in the app logs** (`reason: 'timeout'`) — the default webhook
+  timeout is 10 seconds (`SHEET_SYNC_TIMEOUT_MS` in
+  `lib/registrations/sheets-sync.js`) and the registration route sets
+  `maxDuration = 20`. If your hosting platform caps function duration below
+  ~10 seconds and ignores `maxDuration`, lower `SHEET_SYNC_TIMEOUT_MS` to
+  ≤8 seconds, and/or warm the web hook. The sync is best-effort either way.
+
+### Deployment-only: deployed Google Sheets mirror stops updating
+
+If registrations succeed (201) but the Sheet stops receiving rows **only after
+deploy** — while local dev still updates it — the deployed environment is
+almost always missing one of the two variables. Local `.env.local` does not
+automatically exist on the server.
+
+1. **Check the deployed configuration** — open
+   `GET https://<your-deployed-domain>/api/sheets-sync/status` (or `curl`
+   it). It reports **presence only**, never the values:
+
+   - `{"configured":true,"missing":[]}` — both variables are visible to the
+     deployed server.
+   - `{"configured":false,"missing":["GOOGLE_SHEETS_WEBHOOK_URL","GOOGLE_SHEETS_WEBHOOK_SECRET"]}`
+     (either name alone) — add the missing variable(s) to the deployed
+     environment and redeploy.
+
+2. **Provision the variables on Vercel** (dashboard: project → Settings →
+   Environment Variables; or CLI, from the project root):
+
+   ```bash
+   vercel env add GOOGLE_SHEETS_WEBHOOK_URL production
+   vercel env add GOOGLE_SHEETS_WEBHOOK_SECRET production
+   ```
+
+   Then **redeploy** — environment variables only take effect in new
+   deployments. After redeploying, re-check the status endpoint above until
+   it reports `configured:true`.
+
+3. **Confirm the URL is the `/exec` deployment, not `/dev`** — the Next.js
+   server must call `https://script.google.com/macros/s/<id>/exec`. The
+   `/dev` variant only works while signed in to the owner's browser and will
+   silently fail from a server.
+
+4. **After editing `scripts/apps-script/Code.gs` or `appsscript.json`,
+   always create a NEW deployment version** (Deploy → Manage deployments →
+   edit → Version → New version) — the old URL keeps running the old code
+   until you redeploy. Note: the Apps Script side in this repository is
+   already correct; this step matters when you change it yourself.
+
+5. **Verify with one live registration** — register through the deployed UI,
+   then confirm in the Sheet that exactly **one** row was appended for that
+   `registrationId` (same reference, no duplicate). The registration response
+   should carry `syncStatus: "ok"` and `X-Sync-Status: ok`.
+
+   If the Sheet still misses rows while the status endpoint says
+   `configured:true`, check the Apps Script **Executions** log and the
+   `reason` in your `syncStatus: "warning"` registrations (network, timeout,
+   malformed body, or webhook error).
 
 ## 10. Security model
 

@@ -4,6 +4,7 @@ import { validateRegistration } from '../../../lib/registrations/validation.js';
 import { getSheetsWebhookConfig, syncRegistrationToSheets } from '../../../lib/registrations/sheets-sync.js';
 
 export const runtime = 'nodejs';
+export const maxDuration = 20;
 
 const registrationColumns = 'registration_id,registered_at,last_name,first_name,middle_name,gender,email,contact_number,barangay,city,province,region,institutional_affiliation,degree_program,other_affiliations,religious_stance,religious_stance_other,attending_as,attendance_mode,consent';
 
@@ -53,18 +54,31 @@ export async function POST(request) {
     }
 
     let syncWarning = false;
+    let syncStatus = null;
     if (createdRow) {
       try {
         const { url, secret } = getSheetsWebhookConfig();
         const syncResult = await syncRegistrationToSheets({ registration: createdRow, webhookUrl: url, webhookSecret: secret });
         syncWarning = syncResult?.synced === false && !syncResult?.skipped;
+        syncStatus = syncResult?.synced === true ? 'ok' : syncResult?.skipped === true ? 'skipped' : 'warning';
       } catch (error) {
         console.error('Registration sheet sync failed:', { message: error instanceof Error ? error.message : error, registrationId: created.registration_id });
+        // Preserve the historic fail-open contract; the status surface still
+        // lets operators see that the Sheets mirror did not confirm.
         syncWarning = false;
+        syncStatus = 'warning';
       }
     }
 
-    return Response.json({ registrationId: created.registration_id, ...(syncWarning ? { syncWarning } : {}) }, { status: 201 });
+    const responseHeaders = syncStatus ? { 'X-Sync-Status': syncStatus } : undefined;
+    return Response.json(
+      {
+        registrationId: created.registration_id,
+        ...(syncWarning ? { syncWarning } : {}),
+        ...(syncStatus ? { syncStatus } : {}),
+      },
+      { status: 201, headers: responseHeaders },
+    );
   } catch (error) {
     console.error('Registration backend error:', error instanceof Error ? error.message : error);
     return Response.json({ message: 'Registration is temporarily unavailable. Please try again later.' }, { status: 500 });
