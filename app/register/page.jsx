@@ -1,8 +1,264 @@
 import RegistrationForm from '../../components/registration-form';
 import ShaderBackground from '../../components/ui/shader-background';
 
-export const metadata = { title: 'Register | HAPI Secular Philosophical Paper Conference', description: 'Register for the 1st HAPI Secular Philosophical Paper Conference.' };
+export const metadata = {
+  title: 'Register | HAPI Secular Philosophical Paper Conference',
+  description:
+    'Register for the 1st HAPI Secular Philosophical Paper Conference.',
+};
 
 export default function RegisterPage() {
-  return <main className="registration-page"><div className="registration-atmosphere"><ShaderBackground className="registration-shader" /><div className="registration-scrim" /></div><nav className="registration-nav page-shell" aria-label="Registration navigation"><a className="hapi-brand" href="/" aria-label="HAPI home"><span className="hapi-brand-mark">✦</span><span>HAPI</span><small>Humanist Alliance<br />Philippines, International</small></a><a className="back-link" href="/">← Back to conference</a></nav><header className="registration-hero page-shell"><p className="registration-kicker">1st HAPI Secular Philosophical Paper Conference · 20 November 2026</p><h1><em>Discarding God</em><br />registration</h1><p className="registration-deck">A conference about morality, purpose, values, religion, and reality in a worldview grounded in evidence, critical inquiry, and unconditional empathy.</p><div className="registration-meta"><span>The Ministry Lounge Bar &amp; Cafe, Makati City</span><span>10:00 AM — 8:00 PM</span></div></header><div className="registration-content page-shell"><div className="registration-context"><section><p className="registration-kicker">About the conference</p><h2>A space for<br /><em>secular thought.</em></h2><p>The theme for the 1st HAPI Secular Philosophical Paper Conference is <strong>Discarding God</strong>—a shift away from systems of thought that depend on faith, divine command, doctrines, and the supernatural as the basis for truth, values, and judgment. Throughout history, these dogmas have often been weaponized to suppress skepticism and freethinking, marginalize those whom scriptures condemn, and reduce humanity to a fixed essence defined by the will of a particular conception of a deity whose reality is questionable.</p><p>By discarding God, what becomes of morality, of purpose, and of reality in a worldview where evidence, critical inquiry, and unconditional empathy form the basis of justification? This conference brings together secular academics of philosophy and intellectuals of all disciplines to discuss secular perspectives on morality, purpose, values, religion, and other related topics in a safe space designated for secular freethinkers. This event provides vital representation for secular humanism and irreligion in philosophical discourse, serving as a form of resistance in a conservative society that often treats disbelief as a minority status or an illness.</p><p>This landmark event is organized by <strong>Humanist Alliance Philippines, International (HAPI)</strong>—specifically our sub-committee, <em>HAPI Secular &amp; Existential Philosophies</em> and <em>HAPI Scholars</em>—in partnership with and generously supported by <strong>Humanists International</strong> via the <em>Young Humanist Grant</em>.</p></section><section><p className="registration-kicker">What to expect as an audience member</p><div className="expect-list"><article><b>01</b><h3>Complimentary refreshments</h3><p>Food and beverages are included for all registered attendees for the duration of the conference.</p></article><article><b>02</b><h3>Free admission</h3><p>Participation as part of the audience is completely free of charge.</p></article><article><b>03</b><h3>Engaging discussions</h3><p>Listen to insightful presentations on secular philosophies, ethics, and worldviews from up-and-coming scholars and academics.</p></article><article><b>04</b><h3>Networking space</h3><p>Connect with like-minded secular humanists, atheists, agnostics, freethinkers, and curious believers in a welcoming community environment.</p></article></div><p className="audience-note">This event is open to philosophy majors, academics from other disciplines, atheists, agnostics, deists, pantheists, secular individuals, non-religious believers, and curious minds alike.</p></section><section className="capacity-notice"><p className="registration-kicker">Important notice regarding registration</p><h2>Registration is not automatic admission.</h2><p>Due to the <strong>limited capacity of the venue</strong>, we cannot guarantee that every potential audience member who registers will be granted physical admission.</p><p><strong>Ticketing &amp; confirmation:</strong> We will review registrations and issue official entry tickets to confirm physical attendance. Please wait for us to send you an official email invitation containing your venue entry pass before heading to the location.</p><p><strong>Priority selection:</strong> In the event that registration exceeds our maximum venue capacity, priority for physical admission will be given to philosophy majors and individuals who identify as secular (atheist, agnostic, deist, pantheist, etc.).</p></section><section className="event-details"><p className="registration-kicker">Event details</p><div><h3>Venue</h3><p><strong>The Ministry Lounge Bar &amp; Cafe, Makati City</strong><br />5th Floor, AHG Lab Building, 5048 P. Burgos Street, Brgy. Poblacion, Makati City</p><a href="https://maps.app.goo.gl/wZy9AHmw2uCt82eL6?utm_source=gemini" target="_blank" rel="noreferrer">View on Google Maps ↗</a></div><div><h3>Date &amp; time</h3><p><strong>November 20, 2026 | 10:00 AM — 8:00 PM</strong></p></div><div><h3>Updates</h3><p>For more information and updates, please keep an eye on announcements posted on the official Humanist Alliance Philippines, International (HAPI) Facebook Page.</p><a href="https://www.facebook.com/HAPIHumanistAlliancePhilippinesInternational" target="_blank" rel="noreferrer">Open HAPI on Facebook ↗</a></div></section></div><div className="registration-form-column"><RegistrationForm /></div></div><footer className="registration-footer page-shell"><span>HAPI · Humanist Alliance Philippines, International</span><a href="/">Return to conference page ↗</a></footer></main>;
+  return (
+    <main className="registration-page">
+      <div className="registration-atmosphere">
+        <ShaderBackground className="registration-shader" />
+        <div className="registration-scrim" />
+      </div>
+
+      <nav
+        className="registration-nav page-shell"
+        aria-label="Registration navigation"
+      >
+        <a className="hapi-brand" href="/" aria-label="HAPI home">
+          <span className="hapi-brand-mark">✦</span>
+          <span>HAPI</span>
+          <small>
+            Humanist Alliance
+            <br />
+            Philippines, International
+          </small>
+        </a>
+
+        <a className="back-link" href="/">
+          ← Back to conference
+        </a>
+      </nav>
+
+      <header className="registration-hero page-shell">
+        <p className="registration-kicker">
+          1st HAPI Secular Philosophical Paper Conference · 20 November 2026
+        </p>
+
+        <h1>
+          <em>Discarding God</em>
+          <br />
+          registration
+        </h1>
+
+        <p className="registration-deck">
+          A conference about morality, purpose, values, religion, and reality
+          in a worldview grounded in evidence, critical inquiry, and
+          unconditional empathy.
+        </p>
+
+        <div className="registration-meta">
+          <span>The Ministry Lounge Bar &amp; Cafe, Makati City</span>
+          <span>9:00 AM — 8:30 PM</span>
+        </div>
+      </header>
+
+      <div className="registration-content page-shell">
+        <div className="registration-context">
+          <section>
+            <p className="registration-kicker">About the conference</p>
+
+            <h2>
+              A space for
+              <br />
+              <em>secular thought.</em>
+            </h2>
+
+            <p>
+              The theme for the 1st HAPI Secular Philosophical Paper Conference
+              is <strong>Discarding God</strong>—a shift away from systems of
+              thought that depend on faith, divine command, doctrines, and the
+              supernatural as the basis for truth, values, and judgment.
+              Throughout history, these dogmas have often been weaponized to
+              suppress skepticism and freethinking, marginalize those whom
+              scriptures condemn, and reduce humanity to a fixed essence
+              defined by the will of a particular conception of a deity whose
+              reality is questionable.
+            </p>
+
+            <p>
+              By discarding God, what becomes of morality, of purpose, and of
+              reality in a worldview where evidence, critical inquiry, and
+              unconditional empathy form the basis of justification? This
+              conference brings together secular academics of philosophy and
+              intellectuals of all disciplines to discuss secular perspectives
+              on morality, purpose, values, religion, and other related topics
+              in a safe space designated for secular freethinkers. This event
+              provides vital representation for secular humanism and irreligion
+              in philosophical discourse, serving as a form of resistance in a
+              conservative society that often treats disbelief as a minority
+              status or an illness.
+            </p>
+
+            <p>
+              This landmark event is organized by{' '}
+              <strong>
+                Humanist Alliance Philippines, International (HAPI)
+              </strong>
+              —specifically our sub-committee,{' '}
+              <em>HAPI Secular &amp; Existential Philosophies</em> and{' '}
+              <em>HAPI Scholars</em>—in partnership with and generously
+              supported by <strong>Humanists International</strong> via the{' '}
+              <em>Young Humanist Grant</em>.
+            </p>
+          </section>
+
+          <section>
+            <p className="registration-kicker">
+              What to expect as an audience member
+            </p>
+
+            <div className="expect-list">
+              <article>
+                <b>01</b>
+                <h3>Complimentary refreshments</h3>
+                <p>
+                  Food and beverages are included for all registered attendees
+                  for the duration of the conference.
+                </p>
+              </article>
+
+              <article>
+                <b>02</b>
+                <h3>Free admission</h3>
+                <p>
+                  Participation as part of the audience is completely free of
+                  charge.
+                </p>
+              </article>
+
+              <article>
+                <b>03</b>
+                <h3>Engaging discussions</h3>
+                <p>
+                  Listen to insightful presentations on secular philosophies,
+                  ethics, and worldviews from up-and-coming scholars and
+                  academics.
+                </p>
+              </article>
+
+              <article>
+                <b>04</b>
+                <h3>Networking space</h3>
+                <p>
+                  Connect with like-minded secular humanists, atheists,
+                  agnostics, freethinkers, and curious believers in a welcoming
+                  community environment.
+                </p>
+              </article>
+            </div>
+
+            <p className="audience-note">
+              This event is open to philosophy majors, academics from other
+              disciplines, atheists, agnostics, deists, pantheists, secular
+              individuals, non-religious believers, and curious minds alike.
+            </p>
+          </section>
+
+          <section className="capacity-notice">
+            <p className="registration-kicker">
+              Important notice regarding registration
+            </p>
+
+            <h2>Registration is not automatic admission.</h2>
+
+            <p>
+              Due to the <strong>limited capacity of the venue</strong>, we
+              cannot guarantee that every potential audience member who
+              registers will be granted physical admission.
+            </p>
+
+            <p>
+              <strong>Ticketing &amp; confirmation:</strong> We will review
+              registrations and issue official entry tickets to confirm
+              physical attendance. Please wait for us to send you an official
+              email invitation containing your venue entry pass before heading
+              to the location.
+            </p>
+
+            <p>
+              <strong>Priority selection:</strong> In the event that
+              registration exceeds our maximum venue capacity, priority for
+              physical admission will be given to philosophy majors and
+              individuals who identify as secular (atheist, agnostic, deist,
+              pantheist, etc.).
+            </p>
+          </section>
+
+          <section className="event-details">
+            <p className="registration-kicker">Event details</p>
+
+            <div>
+              <h3>Venue</h3>
+
+              <p>
+                <strong>
+                  The Ministry Lounge Bar &amp; Cafe, Makati City
+                </strong>
+                <br />
+                5th Floor, AHG Lab Building, 5048 P. Burgos Street, Brgy.
+                Poblacion, Makati City
+              </p>
+
+              <a
+                href="https://maps.app.goo.gl/wZy9AHmw2uCt82eL6?utm_source=gemini"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on Google Maps ↗
+              </a>
+            </div>
+
+            <div>
+              <h3>Date &amp; time</h3>
+
+              <p>
+                <strong>November 20, 2026 | 9:00 AM — 8:30 PM</strong>
+              </p>
+            </div>
+
+            <div>
+              <h3>Updates</h3>
+
+              <p>
+                For more information and updates, please keep an eye on
+                announcements posted on the official Humanist Alliance
+                Philippines, International (HAPI) Facebook Page and Wesbsite.
+              </p>
+
+              <a
+                href="https://www.facebook.com/HAPIHumanistAlliancePhilippinesInternational"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open HAPI on Facebook 
+              </a>
+
+              <a 
+                href='https://hapihumanist.org'
+                target='blank'
+                rel='noreferrer'
+              >
+                Open HAPI on Website ↗
+                </a>
+            </div>
+          </section>
+        </div>
+
+        <div className="registration-form-column">
+          <RegistrationForm />
+        </div>
+      </div>
+
+      <footer className="registration-footer page-shell">
+        <span>HAPI · Humanist Alliance Philippines, International</span>
+
+        <a href="/">Return to conference page ↗</a>
+      </footer>
+    </main>
+  );
 }
