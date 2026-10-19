@@ -2,6 +2,7 @@ import { createServerSupabaseClient } from '../../../lib/supabase/server.js';
 import { queueExcelExport } from '../../../lib/registrations/excel.js';
 import { validateRegistration } from '../../../lib/registrations/validation.js';
 import { getSheetsWebhookConfig, syncRegistrationToSheets } from '../../../lib/registrations/sheets-sync.js';
+import { REGISTRATION_CLOSED } from '../../../lib/registrations/constants.js';
 
 export const runtime = 'nodejs';
 export const maxDuration = 20;
@@ -13,6 +14,9 @@ function isDuplicateError(error) {
 }
 
 export async function POST(request) {
+  if (REGISTRATION_CLOSED) {
+    return Response.json({ message: 'Registration is now closed.' }, { status: 403 });
+  }
   const input = await request.json().catch(() => null);
   const validation = validateRegistration(input);
   if (!validation.ok) return Response.json({ message: validation.message }, { status: validation.status });

@@ -1,10 +1,9 @@
-import RegistrationForm from '../../components/registration-form';
 import ShaderBackground from '../../components/ui/shader-background';
 
 export const metadata = {
-  title: 'Register | HAPI Secular Philosophical Paper Conference',
+  title: 'Registration Closed | HAPI Secular Philosophical Paper Conference',
   description:
-    'Register for the 1st HAPI Secular Philosophical Paper Conference.',
+    'Registration for the 1st HAPI Secular Philosophical Paper Conference is now closed.',
 };
 
 export default function RegisterPage() {
@@ -250,7 +249,15 @@ export default function RegisterPage() {
         </div>
 
         <div className="registration-form-column">
-          <RegistrationForm />
+          <section className="registration-success registration-closed-notice" aria-live="polite">
+            <span className="success-symbol">✕</span>
+            <p className="registration-kicker">Registration is now closed</p>
+            <h2>Thank you for your interest<br /><em>in the conference.</em></h2>
+            <p>Registration for the 1st HAPI Secular Philosophical Paper Conference is now closed.</p>
+            <a className="registration-link-button" href="/">
+              Return to the conference page <span>↗</span>
+            </a>
+          </section>
         </div>
       </div>
 

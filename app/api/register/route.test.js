@@ -26,6 +26,16 @@ mock.module('../../../lib/registrations/excel.js', {
   },
 });
 
+mock.module('../../../lib/registrations/constants.js', {
+  exports: {
+    REGISTRATION_CLOSED: false,
+    GENDERS: ['Male', 'Female', 'Non-Binary', 'Prefer not to Say'],
+    RELIGIOUS_STANCES: ['Atheist', 'Agnostic', 'Deist', 'Pantheist/Panentheist', 'Secular/Non-Believer/Non-theistic', 'Non-Religious Believer', 'Curious Believer', 'Other'],
+    ATTENDING_AS: 'Participant/Audience',
+    ATTENDANCE_MODES: ['Onsite', 'Online'],
+  },
+});
+
 const { POST } = await import('./route.js');
 
 // ---------------------------------------------------------------------------
@@ -378,3 +388,4 @@ test('missing Sheets env vars return 201 with syncStatus skipped and 0 webhook c
     restoreFetch();
   }
 });
+
