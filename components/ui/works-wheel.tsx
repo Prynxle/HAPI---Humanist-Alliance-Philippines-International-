@@ -91,6 +91,7 @@ export function WorksWheel({
   const [phoneScreen, setPhoneScreen] = React.useState(false);
   const [reduced, setReduced] = React.useState(false);
   const [lightboxImage, setLightboxImage] = React.useState<WorksWheelBioImage | null>(null);
+  const [lightboxTitle, setLightboxTitle] = React.useState<string | null>(null);
   const [isLightboxClosing, setIsLightboxClosing] = React.useState(false);
   const [imageNotice, setImageNotice] = React.useState<string | null>(null);
 
@@ -152,6 +153,7 @@ export function WorksWheel({
       setImageNotice(null);
       setIsLightboxClosing(false);
       setLightboxImage(match);
+      setLightboxTitle(item.title);
     },
     [lightboxImages],
   );
@@ -162,6 +164,7 @@ export function WorksWheel({
     closeTimer.current = window.setTimeout(() => {
       lightboxRef.current?.close();
       setLightboxImage(null);
+      setLightboxTitle(null);
       setIsLightboxClosing(false);
       closeTimer.current = null;
     }, reduced ? 0 : 180);
@@ -467,7 +470,7 @@ export function WorksWheel({
       {lightboxImage ? (
         <dialog
           ref={lightboxRef}
-          aria-label={`Biography image for ${lightboxImage.fileName.replace(/\.[^.]+$/, "")}`}
+          aria-label={`Biography image for ${lightboxTitle ?? lightboxImage.fileName.replace(/\.[^.]+$/, "")}`}
           className="presenter-lightbox"
           data-closing={isLightboxClosing ? "true" : undefined}
           onCancel={(event) => {
@@ -479,6 +482,7 @@ export function WorksWheel({
           }}
           onClose={() => {
             setLightboxImage(null);
+            setLightboxTitle(null);
             setIsLightboxClosing(false);
           }}
         >
@@ -494,14 +498,14 @@ export function WorksWheel({
           <figure className="presenter-lightbox-figure">
             <Image
               src={lightboxImage.src}
-              alt={`Biography and conference abstract for ${lightboxImage.fileName.replace(/\.[^.]+$/, "")}`}
+              alt={`Biography and conference abstract for ${lightboxTitle ?? lightboxImage.fileName.replace(/\.[^.]+$/, "")}`}
               width={lightboxImage.width}
               height={lightboxImage.height}
               sizes="92vw"
               className="presenter-lightbox-image"
             />
             <figcaption className="presenter-lightbox-caption">
-              {lightboxImage.fileName.replace(/\.[^.]+$/, "")}
+              {lightboxTitle ?? lightboxImage.fileName.replace(/\.[^.]+$/, "")}
             </figcaption>
           </figure>
         </dialog>

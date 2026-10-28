@@ -38,7 +38,7 @@ function differsByOneCharacter(first: string, second: string) {
   return differences + Number(firstIndex < first.length || secondIndex < second.length) <= 1;
 }
 
-/** Match by normalized filename tokens, allowing one-character name typos. */
+/** Match by normalized filename tokens, allowing partial/one-character name variations. */
 export function findMatchingBioImage(
   item: WorksWheelItem,
   images: WorksWheelBioImage[],
@@ -47,14 +47,15 @@ export function findMatchingBioImage(
     ...nameTokens(item.title),
     ...nameTokens(item.fileName ?? ""),
   ]);
-  const matches = images.flatMap((image) => {
+
+  const scored = images.map((image) => {
     const tokens = nameTokens(image.fileName);
-    let exactMatches = 0;
-    let fuzzyMatches = 0;
+    let matched = 0;
+    let fuzzy = 0;
 
     for (const token of tokens) {
       if (sourceTokens.has(token)) {
-        exactMatches++;
+        matched++;
         continue;
       }
       const nearMatch =
@@ -63,18 +64,21 @@ export function findMatchingBioImage(
           (sourceToken) =>
             sourceToken.length >= 6 && differsByOneCharacter(token, sourceToken),
         );
-      if (!nearMatch) return [];
-      fuzzyMatches++;
+      if (nearMatch) {
+        matched++;
+        fuzzy++;
+      }
     }
 
-    return [{
-      image,
-      score: tokens.length * 100 + exactMatches * 10 - fuzzyMatches * 20,
-    }];
+    // Prefer images whose tokens are fully covered, but allow partial matches
+    // (e.g. "Hannah Valerie" -> "Hannah Zama") when no exact full match exists.
+    const score = matched * 100 + (matched === tokens.length ? 25 : 0) - fuzzy * 5;
+    return { image, score, matched };
   });
 
-  if (!matches.length) return null;
-  const bestScore = Math.max(...matches.map((match) => match.score));
-  const bestMatches = matches.filter((match) => match.score === bestScore);
+  const bestScore = Math.max(...scored.map((entry) => entry.score));
+  if (bestScore <= 0) return null;
+
+  const bestMatches = scored.filter((entry) => entry.score === bestScore);
   return bestMatches.length === 1 ? bestMatches[0].image : null;
 }
