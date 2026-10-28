@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export function Brand() {
   return (
@@ -25,11 +25,13 @@ const navItems = [
 ];
 
 export function SiteNav() {
+  const [open, setOpen] = useState(false);
   const handleClick = useCallback((id: string) => {
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setOpen(false);
   }, []);
 
   return (
@@ -56,6 +58,45 @@ export function SiteNav() {
           Register <span>↗</span>
         </a>
       </div>
+
+      <button
+        type="button"
+        className="mobile-nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      {open ? (
+        <div className="mobile-nav-menu" role="menu">
+          {navItems.map((item) =>
+            item.href ? (
+              <a
+                key={item.id}
+                className="mobile-nav-link"
+                href={item.href}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.id}
+                type="button"
+                className="mobile-nav-link"
+                onClick={() => handleClick(item.id)}
+              >
+                {item.label}
+              </button>
+            ),
+          )}
+          <a className="mobile-nav-cta" href="/register" onClick={() => setOpen(false)}>
+            Register <span>↗</span>
+          </a>
+        </div>
+      ) : null}
     </nav>
   );
 }
