@@ -1,0 +1,175 @@
+- generic [active] [ref=f5e1]:
+  - main [ref=f5e2]:
+    - link "HAPI home" [ref=f5e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=f5e5]: ✦
+      - generic [ref=f5e6]: HAPI
+    - region "Presenters" [ref=f5e7]:
+      - listbox "Presenters" [ref=f5e8]:
+        - generic:
+          - option "Apollo Kristoffe F. Gueco" [selected]:
+            - generic:
+              - img "Apollo Kristoffe F. Gueco"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Arabella Grace Sta. Ana":
+            - generic:
+              - img "Arabella Grace Sta. Ana"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Aron Malonzo":
+            - generic:
+              - img "Aron Malonzo"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Isiah Austin L. Angco III":
+            - generic:
+              - img "Isiah Austin L. Angco III"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Christian John T. Perez":
+            - generic:
+              - img "Christian John T. Perez"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Edward Timothy M. Sotto":
+            - generic:
+              - img "Edward Timothy M. Sotto"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Hannah Valerie Acama":
+            - generic:
+              - img "Hannah Valerie Acama"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Jazel JR Sevilla":
+            - generic:
+              - img "Jazel JR Sevilla"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Jerome Mari S. Item":
+            - generic:
+              - img "Jerome Mari S. Item"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Jhun William T. Cabrezos":
+            - generic:
+              - img "Jhun William T. Cabrezos"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Jonathan Raño":
+            - generic:
+              - img "Jonathan Raño"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Joshua Rupert A. Buraga":
+            - generic:
+              - img "Joshua Rupert A. Buraga"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Ron Justin P. Mangondato":
+            - generic:
+              - img "Ron Justin P. Mangondato"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Kane S. Gaviola":
+            - generic:
+              - img "Kane S. Gaviola"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Ma. Ran Marthie R. Valdueza":
+            - generic:
+              - img "Ma. Ran Marthie R. Valdueza"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+          - option "Jason Zachary T. Gayoma":
+            - generic:
+              - img "Jason Zachary T. Gayoma"
+              - generic:
+                - generic [aria-hidden]: ↗
+                - text: View biography
+      - generic [aria-hidden]:
+        - generic:
+          - generic: HAPI
+          - generic: Presenters
+      - list "Choose a presenter" [ref=f5e9]:
+        - listitem [ref=f5e10]:
+          - button "01 Apollo Kristoffe F. Gueco" [ref=f5e11] [cursor=pointer]:
+            - generic [ref=f5e12]: "01"
+            - generic [ref=f5e13]: Apollo Kristoffe F. Gueco
+        - listitem [ref=f5e14]:
+          - button "02 Arabella Grace Sta. Ana" [ref=f5e15] [cursor=pointer]:
+            - generic [ref=f5e16]: "02"
+            - generic [ref=f5e17]: Arabella Grace Sta. Ana
+        - listitem [ref=f5e18]:
+          - button "03 Aron Malonzo" [ref=f5e19] [cursor=pointer]:
+            - generic [ref=f5e20]: "03"
+            - generic [ref=f5e21]: Aron Malonzo
+        - listitem [ref=f5e22]:
+          - button "04 Isiah Austin L. Angco III" [ref=f5e23] [cursor=pointer]:
+            - generic [ref=f5e24]: "04"
+            - generic [ref=f5e25]: Isiah Austin L. Angco III
+        - listitem [ref=f5e26]:
+          - button "05 Christian John T. Perez" [ref=f5e27] [cursor=pointer]:
+            - generic [ref=f5e28]: "05"
+            - generic [ref=f5e29]: Christian John T. Perez
+        - listitem [ref=f5e30]:
+          - button "06 Edward Timothy M. Sotto" [ref=f5e31] [cursor=pointer]:
+            - generic [ref=f5e32]: "06"
+            - generic [ref=f5e33]: Edward Timothy M. Sotto
+        - listitem [ref=f5e34]:
+          - button "07 Hannah Valerie Acama" [ref=f5e35] [cursor=pointer]:
+            - generic [ref=f5e36]: "07"
+            - generic [ref=f5e37]: Hannah Valerie Acama
+        - listitem [ref=f5e38]:
+          - button "08 Jazel JR Sevilla" [ref=f5e39] [cursor=pointer]:
+            - generic [ref=f5e40]: "08"
+            - generic [ref=f5e41]: Jazel JR Sevilla
+        - listitem [ref=f5e42]:
+          - button "09 Jerome Mari S. Item" [ref=f5e43] [cursor=pointer]:
+            - generic [ref=f5e44]: "09"
+            - generic [ref=f5e45]: Jerome Mari S. Item
+        - listitem [ref=f5e46]:
+          - button "10 Jhun William T. Cabrezos" [ref=f5e47] [cursor=pointer]:
+            - generic [ref=f5e48]: "10"
+            - generic [ref=f5e49]: Jhun William T. Cabrezos
+        - listitem [ref=f5e50]:
+          - button "11 Jonathan Raño" [ref=f5e51] [cursor=pointer]:
+            - generic [ref=f5e52]: "11"
+            - generic [ref=f5e53]: Jonathan Raño
+        - listitem [ref=f5e54]:
+          - button "12 Joshua Rupert A. Buraga" [ref=f5e55] [cursor=pointer]:
+            - generic [ref=f5e56]: "12"
+            - generic [ref=f5e57]: Joshua Rupert A. Buraga
+        - listitem [ref=f5e58]:
+          - button "13 Ron Justin P. Mangondato" [ref=f5e59] [cursor=pointer]:
+            - generic [ref=f5e60]: "13"
+            - generic [ref=f5e61]: Ron Justin P. Mangondato
+        - listitem [ref=f5e62]:
+          - button "14 Kane S. Gaviola" [ref=f5e63] [cursor=pointer]:
+            - generic [ref=f5e64]: "14"
+            - generic [ref=f5e65]: Kane S. Gaviola
+        - listitem [ref=f5e66]:
+          - button "15 Ma. Ran Marthie R. Valdueza" [ref=f5e67] [cursor=pointer]:
+            - generic [ref=f5e68]: "15"
+            - generic [ref=f5e69]: Ma. Ran Marthie R. Valdueza
+        - listitem [ref=f5e70]:
+          - button "16 Jason Zachary T. Gayoma" [ref=f5e71] [cursor=pointer]:
+            - generic [ref=f5e72]: "16"
+            - generic [ref=f5e73]: Jason Zachary T. Gayoma
+  - button "Open Next.js Dev Tools" [ref=f5e79] [cursor=pointer]

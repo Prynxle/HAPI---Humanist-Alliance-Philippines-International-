@@ -1,0 +1,104 @@
+- generic [active] [ref=f10e1]:
+  - main [ref=f10e2]:
+    - link "Skip to content" [ref=f10e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=f10e4]:
+      - navigation "Primary navigation" [ref=f10e5]:
+        - link "HAPI home" [ref=f10e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f10e7]: ✦
+          - generic [ref=f10e8]: HAPI
+        - button "Toggle navigation menu" [ref=f10e9] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f10e10]: ☰
+      - generic [ref=f10e12]:
+        - paragraph [ref=f10e13]: HAPI presents · 2026
+        - heading [level=1] [ref=f10e14]:
+          - text: 1st Secular
+          - emphasis [ref=f10e15]: Philosophical
+          - text: Paper Conference
+        - paragraph [ref=f10e17]: "Discarding God: Values in a Worldview Without Religion"
+        - generic [ref=f10e18]: November 20, 2026The Ministry Lounge Bar & Cafe, Makati City
+        - generic [ref=f10e20]:
+          - button "Download Booklet ↓" [ref=f10e21]:
+            - text: Download Booklet
+            - generic [ref=f10e22]: ↓
+          - button "Download Important Reminders for Guests ↓" [ref=f10e23]:
+            - text: Download Important Reminders for Guests
+            - generic [ref=f10e24]: ↓
+      - generic [ref=f10e25]: Secular humanism / scholarship / community
+    - generic [ref=f10e27]:
+      - paragraph [ref=f10e29]: DID YOU KNOW?
+      - generic [ref=f10e31]:
+        - paragraph [ref=f10e32]: The secular humanist movement has always been deeply rooted in scholarship, research, and academic work. It has been shaped by philosophers, scientists, historians, secular theologians, psychologists, and public intellectuals whose work transformed how we think about ethics, religion, politics, science, and the human condition.
+        - paragraph [ref=f10e33]: Prominent figures such as Paul Kurtz, Bertrand Russell, John Dewey, A. J. Ayer, Daniel Dennett, B. F. Skinner, Karl Popper, Albert Einstein, Carl Sagan, Stephen Hawking, Corliss Lamont and Isaac Asimov - among many others - have helped shape the rich intellectual tradition from which contemporary and organizational secular humanism continues to grow.
+        - paragraph [ref=f10e34]: All of these thinkers were once part of leading humanist organizations during their lifetime such as the American Humanist Association and Humanists UK, organizations that form part of (and founding member) of its global humanist community - Humanists International - which proudly supports this conference.
+        - paragraph [ref=f10e35]: By participating in this event through HAPI, you join in the same movement these thinkers belonged to and become part of this continuing international intellectual tradition of rigorous, secular and evidence-based scholarship that seeks to better understand humanity, ethics, society, and our place in the world.
+        - generic [ref=f10e36]:
+          - paragraph [ref=f10e37]: You do not need to be an academic.
+          - paragraph [ref=f10e38]: You do not need to present a paper.
+          - paragraph [ref=f10e39]: You only need to bring your curiosity, your questions, and your willingness to think.
+          - paragraph [ref=f10e40]: Perhaps you will leave with answers.Perhaps you will leave with better questions.
+          - paragraph [ref=f10e41]: Either way, you will have taken part in the pursuit. 🔭
+        - paragraph [ref=f10e42]: See more of these thinkers below!
+    - generic [ref=f10e44]:
+      - generic [ref=f10e45]:
+        - generic [ref=f10e46]:
+          - paragraph [ref=f10e47]: THE INTELLECTUAL TRADITION
+          - heading [level=2] [ref=f10e49]:
+            - text: Thinkers who
+            - emphasis [ref=f10e50]: made room
+            - text: for doubt.
+        - paragraph [ref=f10e51]: These are the thinkers who shaped the intellectual tradition that currently pervades the organized secular humanist movement through their active involvement in their respective humanist organizations and significant contribution of knowledge to their respective fields.
+      - region "Secular humanist thinkers" [ref=f10e52]:
+        - generic [ref=f10e53]:
+          - generic [ref=f10e54]: 01 / 12
+          - generic [ref=f10e55]:
+            - button "Previous thinker" [ref=f10e56] [cursor=pointer]: ←
+            - button "Next thinker" [ref=f10e57] [cursor=pointer]: →
+        - generic [ref=f10e58]:
+          - tab "Show Paul Kurtz" [selected] [ref=f10e59]:
+            - img "Image of Paul Kurtz" [ref=f10e60]
+          - tab "Show Bertrand Russell" [ref=f10e62] [cursor=pointer]:
+            - img "Image of Bertrand Russel" [ref=f10e63]
+          - tab "Show John Dewey" [ref=f10e65] [cursor=pointer]:
+            - img "Image of John Dewey" [ref=f10e66]
+          - tab "Show Karl Popper" [ref=f10e68] [cursor=pointer]:
+            - img "Image of Karl Popper" [ref=f10e69]
+        - generic [ref=f10e71]:
+          - generic [ref=f10e72]:
+            - text: Featured thinker
+            - heading "Paul Kurtz" [level=3] [ref=f10e73]
+            - paragraph [ref=f10e74]: One of the founding fathers of secular humanism, Paul Kurtz, who was known for his notion of Eupraxy is a co-author of the 2nd Humanist Manifesto which insisted that secular humanism should not be perceived as a secular religion. He was the founder of Prometheus Books and Center for Skeptical Inquiry. He was a former editor of American Humanist Association's Humanist Magazine.
+          - tablist "Choose a thinker" [ref=f10e75]:
+            - button "Go to Paul Kurtz" [ref=f10e76] [cursor=pointer]
+            - button "Go to Bertrand Russell" [ref=f10e77] [cursor=pointer]
+            - button "Go to John Dewey" [ref=f10e78] [cursor=pointer]
+            - button "Go to Karl Popper" [ref=f10e79] [cursor=pointer]
+            - button "Go to B. F. Skinner" [ref=f10e80] [cursor=pointer]
+            - button "Go to Daniel Dennet" [ref=f10e81] [cursor=pointer]
+            - button "Go to Albert Einstein" [ref=f10e82] [cursor=pointer]
+            - button "Go to Francesca Stavrakopoulou" [ref=f10e83] [cursor=pointer]
+            - button "Go to Stephen Hawking" [ref=f10e84] [cursor=pointer]
+            - button "Go to Rebecca Goldstein" [ref=f10e85] [cursor=pointer]
+            - button "Go to Julian Huxley" [ref=f10e86] [cursor=pointer]
+            - button "Go to AC Grayling" [ref=f10e87] [cursor=pointer]
+    - generic [ref=f10e88]:
+      - generic [ref=f10e89]: ↗
+      - paragraph [ref=f10e90]: Please note that these are just a few among the many academics who are involved in a secular humanist organization and it does not include the recipients of secular humanist awards that were secular humanist in their principle/philosophy but not organizationally involved - one can be a secular humanist without organizational affiliation or involvement.
+    - generic [ref=f10e91]:
+      - paragraph [ref=f10e92]: MAKE SPACE FOR THE QUESTION
+      - heading [level=2] [ref=f10e94]:
+        - text: Bring your curiosity.
+        - emphasis [ref=f10e95]: Leave with better questions.
+      - link "Register for the Conference ↗" [ref=f10e96] [cursor=pointer]:
+        - /url: /register
+        - text: Register for the Conference
+        - generic [ref=f10e97]: ↗
+    - generic [ref=f10e99]:
+      - link "HAPI home" [ref=f10e100] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f10e101]: ✦
+        - generic [ref=f10e102]: HAPI
+      - paragraph [ref=f10e103]: 1st Secular Philosophical Paper ConferenceNovember 20, 2026 · Makati City
+      - generic [ref=f10e104]: © 2026 HAPI
+  - button "Open Next.js Dev Tools" [ref=f10e110] [cursor=pointer]
