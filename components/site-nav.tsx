@@ -20,7 +20,7 @@ const navItems = [
   { id: "about", label: "About the conference" },
   { id: "thinkers", label: "Thinkers" },
   { id: "abstract-presenters", label: "The Abstract & Presenters", href: "/abstract-presenters" },
-  { id: "lecturers", label: "The Lecturers" },
+  { id: "lecturers", label: "The Lecturers", href: "/lecturers" },
   { id: "organizer", label: "The Organizer" },
 ];
 
