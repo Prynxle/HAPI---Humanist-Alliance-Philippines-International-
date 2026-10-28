@@ -19,7 +19,7 @@ export function Brand() {
 const navItems = [
   { id: "about", label: "About the conference" },
   { id: "thinkers", label: "Thinkers" },
-  { id: "abstract-presenters", label: "The Abstract & Presenters" },
+  { id: "abstract-presenters", label: "The Abstract & Presenters", href: "/abstract-presenters" },
   { id: "lecturers", label: "The Lecturers" },
   { id: "organizer", label: "The Organizer" },
 ];
@@ -36,16 +36,22 @@ export function SiteNav() {
     <nav className="site-nav page-shell" aria-label="Primary navigation">
       <Brand />
       <div className="site-nav-links">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className="nav-link-button"
-            onClick={() => handleClick(item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
+        {navItems.map((item) =>
+          item.href ? (
+            <a key={item.id} className="nav-link-button" href={item.href}>
+              {item.label}
+            </a>
+          ) : (
+            <button
+              key={item.id}
+              type="button"
+              className="nav-link-button"
+              onClick={() => handleClick(item.id)}
+            >
+              {item.label}
+            </button>
+          ),
+        )}
         <a className="nav-cta" href="/register">
           Register <span>↗</span>
         </a>
