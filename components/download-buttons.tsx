@@ -7,9 +7,9 @@ const files = [
     filename: "IMPORTANT-REMINDERS-FOR-GUESTS-AT-THE-SPC.pdf",
   },
   {
-    label: "[Image 1]",
-    url: "/downloads/programflow1.png",
-    filename: "programflow1.png",
+    label: "Download Booklet",
+    url: "/downloads/Conference-Booklet-1st-SPC-HI-HAPI.pdf",
+    filename: "Conference-Booklet-1st-SPC-HI-HAPI.pdf",
   },
   {
     label: "[Image 2]",

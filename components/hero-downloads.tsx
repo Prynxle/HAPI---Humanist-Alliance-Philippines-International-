@@ -15,12 +15,14 @@ export function HeroDownloadButtons() {
       <button
         type="button"
         className="primary-cta"
-        onClick={() => {
-          download("/downloads/programflow1.png", "programflow1.png");
-          download("/downloads/programflow2.png", "programflow2.png");
-        }}
+        onClick={() =>
+          download(
+            "/downloads/Conference-Booklet-1st-SPC-HI-HAPI.pdf",
+            "Conference-Booklet-1st-SPC-HI-HAPI.pdf"
+          )
+        }
       >
-        Download Program Flow <span>↓</span>
+        Download Booklet <span>↓</span>
       </button>
       <button
         type="button"
