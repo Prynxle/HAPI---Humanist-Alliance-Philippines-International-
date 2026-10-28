@@ -264,7 +264,7 @@ export function WorksWheel({
     const element = stageRef.current;
     if (!element || !count) return;
     const onWheel = (event: WheelEvent) => {
-      const next = target.current + event.deltaY / WHEEL_UNITS;
+      const next = target.current - event.deltaY / WHEEL_UNITS;
       if (next > 0 && next < last + 1) event.preventDefault();
       to(next);
       if (settling.current !== null) window.clearTimeout(settling.current);
