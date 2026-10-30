@@ -21,7 +21,7 @@ const navItems = [
   { id: "thinkers", label: "Thinkers" },
   { id: "abstract-presenters", label: "The Abstract & Presenters", href: "/abstract-presenters" },
   { id: "lecturers", label: "The Lecturers", href: "/lecturers" },
-  { id: "organizer", label: "The Organizer" },
+  { id: "organizer", label: "The Organizer", href: "/organizer" },
 ];
 
 export function SiteNav() {
