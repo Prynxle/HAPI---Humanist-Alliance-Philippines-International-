@@ -39,14 +39,15 @@ export default function MaintenancePage() {
               <span aria-hidden="true" /> Website notice
             </p>
             <h1 id="maintenance-title">
-              HAPI Website<br />
+              H.A.P.I.<br />
               is Under <em>Maintenance</em>
             </h1>
             <div className="maintenance-rule" aria-hidden="true" />
             <p className="maintenance-description">
-              <span>We are currently performing</span>{' '}
+              <span>Hi there! I'm Zedrick Espiritu, the developer of this website.</span>{' '}
+              <span>I'm currently performing</span>{' '}
               <span>website maintenance to improve</span>{' '}
-              <span>your experience. We apologize for</span>{' '}
+              <span>your experience. I apologize for</span>{' '}
               <span>any inconvenience and appreciate</span>{' '}
               <span>your patience.</span>
             </p>
@@ -56,8 +57,8 @@ export default function MaintenancePage() {
             <p className="maintenance-contact-label" id="contact-title">
               Please contact:
             </p>
-            <p className="maintenance-contact-name">Zedrick Espirit</p>
-            <p className="maintenance-contact-role">Developer</p>
+            <p className="maintenance-contact-name"><a href="https://www.facebook.com/RaiKaktus">Zedrick Espiritu</a></p>
+            <p className="maintenance-contact-role">Full Stack Developer</p>
             <div className="maintenance-contact-divider" aria-hidden="true" />
             <p className="maintenance-contact-description">
               For inquiries and further assistance regarding the website
