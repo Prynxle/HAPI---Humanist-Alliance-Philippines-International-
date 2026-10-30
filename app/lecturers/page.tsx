@@ -8,7 +8,10 @@ export const metadata = {
 
 export default function LecturersPage() {
   return (
-    <main className="lecturers-page">
+    <main className="lecturers-page" id="main-content">
+      <a className="skip-link" href="#lecturers-content">
+        Skip to lecturers
+      </a>
       <div className="lecturers-brand">
         <Brand />
       </div>
@@ -33,20 +36,31 @@ export default function LecturersPage() {
           </div>
         </header>
 
-        <section className="lecturers-grid" aria-label="Lecturers">
+        <section
+          className="lecturers-stack"
+          aria-labelledby="lecturers-heading"
+          id="lecturers-content"
+        >
+          <h2 id="lecturers-heading" className="sr-only">
+            Lecturers and panelists
+          </h2>
           {lecturers.map((lecturer) => (
             <article key={lecturer.name} className="lecturer-card">
-              <div className="lecturer-portrait">
-                <img
-                  src={lecturer.image}
-                  alt={`Portrait of ${lecturer.name}`}
-                  loading="lazy"
-                  decoding="async"
-                />
+              <div className="lecturer-card-header">
+                <div className="lecturer-portrait">
+                  <img
+                    src={lecturer.image}
+                    alt={`Portrait of ${lecturer.name}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="lecturer-identity">
+                  <p className="lecturer-role">{lecturer.role}</p>
+                  <h3 className="lecturer-name">{lecturer.name}</h3>
+                </div>
               </div>
-              <div className="lecturer-body">
-                <p className="lecturer-role">{lecturer.role}</p>
-                <h2 className="lecturer-name">{lecturer.name}</h2>
+              <div className="lecturer-description">
                 <p className="lecturer-bio">{lecturer.bio}</p>
               </div>
             </article>
