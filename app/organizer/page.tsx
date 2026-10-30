@@ -89,7 +89,7 @@ export default function OrganizerPage() {
               key={person.name}
               className={`featured-profile ${index % 2 === 0 ? "image-left" : "image-right"}`}
             >
-              <div className="featured-portrait">
+              <div className={`featured-portrait ${person.orientation}`}>
                 <img
                   src={person.image}
                   alt={`Portrait of ${person.name}`}
