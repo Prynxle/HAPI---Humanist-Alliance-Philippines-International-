@@ -1,5 +1,5 @@
 import jaztineImage from "../facilitators/Jaztine Santos.jpg";
-import shaneImage from "../facilitators/Shane Haro.png";
+import shaneImage from "../facilitators/Shane Haro.jpg";
 import kellyImage from "../facilitators/Kelly Kim Sepida.png";
 import annikaImage from "../facilitators/Annika Palaganas - preferred photo.jpg";
 
